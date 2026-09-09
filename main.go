@@ -22,8 +22,8 @@ var mapping = make(map[string]string)
 func main() {
 	initDB()
 	intiRedis()
-	http.HandleFunc("/shortenUrl", shortenUrl)
-	http.HandleFunc("/getUrl/", getUrl)
+	http.HandleFunc("/shortenUrl", rateLimiterMiddleware(shortenUrl))
+	http.HandleFunc("/getUrl/", rateLimiterMiddleware(getUrl))
 
 	http.ListenAndServe(":8080", nil)
 }
